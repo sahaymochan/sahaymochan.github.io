@@ -1,186 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAGE | Premium Mental Wellness</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #FCFAF7; /* Premium Alabaster */
-            --white: #FFFFFF;
-            --sage-accent: #7A9473;
-            --sage-glow: rgba(122, 148, 115, 0.15);
-            --text-dark: #1A2419;
-            --text-light: #606C5D;
-            --border: #E5EADD;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elevate your mind · Sahay & Mochan</title>
+  <!-- Font / fallback smoothing -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #f9fafb 0%, #eef2ff 40%, #fff1f2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+    /* ambient blurred circles */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* Ambient background lighting */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 80vw;
-            height: 80vw;
-            background: radial-gradient(circle, var(--sage-glow) 0%, rgba(252,250,247,0) 70%);
-            top: -20%;
-            right: -10%;
-            z-index: -1;
-        }
+    .blob-1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 700px;
+      height: 700px;
+      background: rgba(16, 185, 129, 0.12);  /* emerald/15 */
+      border-radius: 9999px;
+      filter: blur(80px);
+      transform: translate(-10%, -10%);
+    }
 
-        .main-card {
-            background: var(--white);
-            width: 100%;
-            max-width: 480px;
-            padding: 60px 40px;
-            border-radius: 40px;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border);
-            text-align: center;
-            position: relative;
-            animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+    .blob-2 {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 700px;
+      height: 700px;
+      background: rgba(244, 114, 182, 0.12);  /* rose/15 */
+      border-radius: 9999px;
+      filter: blur(80px);
+      transform: translate(10%, 10%);
+    }
 
-        .logo-mark {
-            width: 64px;
-            height: 64px;
-            background: var(--sage-accent);
-            border-radius: 20px;
-            margin: 0 auto 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.5rem;
-            box-shadow: 0 10px 25px var(--sage-glow);
-        }
+    /* main card */
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      max-width: 32rem;  /* lg = 32rem, but design uses max-w-lg = 32rem? (lg:32rem) */
+      width: 100%;
+      border-radius: 40px;
+      padding: 4rem;      /* p-16 = 4rem */
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 10;
+    }
 
-        h1 {
-            font-weight: 700;
-            font-size: 2.2rem;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-        }
+    /* branding */
+    .brand-wrapper {
+      text-align: center;
+      margin-bottom: 2.5rem; /* mb-10 = 2.5rem */
+    }
 
-        p {
-            color: var(--text-light);
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
+    .brand-inner {
+      display: inline-block;
+    }
 
-        /* The "Killer" Link Button */
-        .download-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--text-dark);
-            color: var(--white);
-            text-decoration: none;
-            padding: 20px 40px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
-        }
+    .brand-text {
+      font-size: 0.75rem;  /* text-sm = 0.75rem */
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6b7280;       /* gray-500 */
+      margin-bottom: 0.25rem; /* mb-1 = 0.25rem */
+    }
 
-        .download-btn:hover {
-            transform: scale(1.03);
-            background: var(--sage-accent);
-            box-shadow: 0 15px 30px var(--sage-glow);
-        }
+    .brand-underline {
+      height: 2px;
+      width: 100%;
+      background: linear-gradient(to right, #10b981, #14b8a6, #f43f5e);
+      border-radius: 9999px;
+    }
 
-        .download-btn span {
-            margin-left: 10px;
-            opacity: 0.6;
-            font-weight: 400;
-            font-size: 0.9rem;
-        }
+    /* title */
+    .title {
+      font-size: 2.75rem;    /* text-[2.75rem] */
+      font-weight: 800;      /* bold */
+      text-align: center;
+      margin-bottom: 1.25rem; /* mb-5 = 1.25rem */
+      color: #111827;        /* gray-900 */
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
 
-        .install-guide {
-            margin-top: 30px;
-            font-size: 0.85rem;
-            color: var(--text-light);
-            cursor: pointer;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }
+    /* description */
+    .desc {
+      text-align: center;
+      color: #4b5563;        /* gray-600 */
+      font-size: 1.125rem;   /* text-lg = 1.125rem */
+      margin-bottom: 3rem;    /* mb-12 = 3rem */
+      line-height: 1.6;
+      font-weight: 300;       /* font-light */
+    }
 
-        .install-guide:hover {
-            opacity: 1;
-        }
+    /* buttons container */
+    .buttons-space {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;              /* space-y-4 = gap 1rem */
+      margin-bottom: 2.5rem;  /* mb-10 = 2.5rem */
+    }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    /* base button */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem 2.5rem;  /* px-10 py-5 = 2.5rem/1.25rem */
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 1.125rem;      /* text-lg */
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      color: white;
+    }
 
-        /* Mobile Responsive */
-        @media (max-width: 500px) {
-            .main-card { padding: 40px 24px; width: 92%; }
-            h1 { font-size: 1.8rem; }
-        }
-    </style>
+    .btn-sahay {
+      background: linear-gradient(to right, #059669, #0d9488, #0891b2);
+      /* emerald-600, teal-600, cyan-600 */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .btn-mochan {
+      background: linear-gradient(to right, #ec4899, #f97316);
+      /* pink-500 to orange-500 */
+    }
+
+    .btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-mochan:hover {
+      box-shadow: 0 25px 50px -12px rgba(236, 72, 153, 0.25);
+    }
+
+    .btn .badge {
+      margin-left: 0.75rem;
+      font-size: 0.875rem;    /* text-sm */
+      font-weight: 400;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover .badge {
+      opacity: 1;
+    }
+
+    /* help footer */
+    .help-footer {
+      text-align: center;
+      border-top: 1px solid #e5e7eb; /* gray-200 */
+      padding-top: 1.5rem; /* pt-6 = 1.5rem */
+    }
+
+    .help-toggle {
+      background: none;
+      border: none;
+      font-size: 0.875rem;   /* text-sm */
+      color: #6b7280;         /* gray-500 */
+      text-decoration: underline dotted;
+      text-underline-offset: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .help-toggle:hover {
+      color: #111827;         /* gray-900 */
+    }
+
+    /* help panel */
+    .help-panel {
+      margin-top: 1.25rem;    /* mt-5 = 1.25rem */
+      background: linear-gradient(to bottom right, #f9fafb, #f3f4f6);
+      border-radius: 1rem;     /* 16px */
+      padding: 1.25rem;        /* p-5 = 1.25rem */
+      border: 1px solid #e5e7eb;
+      text-align: left;
+      color: #374151;          /* gray-700 */
+      font-size: 0.875rem;     /* text-sm */
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;             /* space-y-2 */
+    }
+
+    .help-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .step-num {
+      font-weight: 600;
+      color: #059669;          /* emerald-600 */
+    }
+
+    /* hide / show via hidden class + js toggle */
+    .hidden {
+      display: none;
+    }
+
+    /* responsive small screens */
+    @media (max-width: 500px) {
+      .card {
+        padding: 2rem;
+      }
+      .title {
+        font-size: 2rem;
+      }
+      .btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- ambient background -->
+  <div class="ambient-bg">
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+  </div>
 
-    <div class="main-card">
-        <div class="logo-mark">S</div>
-        <h1>Elevate your mind.</h1>
-        <p>Experience the world’s most intuitive mental health companion. Designed for clarity, built for you.</p>
-        <div class="buttons">
-    <a href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/app-debug.apk" class="download-btn" download>
-        Download Sahay App <span>(APK)</span>
-    </a>
-
-    <a href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/mochanapp-debug.apk" class="download-btn" download>
-        Download Mochan App <span>(APK)</span>
-    </a>
-</div>
-
-        <div class="install-guide" onclick="showHelp()">
-            How to install on Android?
-        </div>
+  <!-- main card -->
+  <div class="card">
+    <!-- branding -->
+    <div class="brand-wrapper">
+      <div class="brand-inner">
+        <div class="brand-text">AI Mental Health</div>
+        <div class="brand-underline"></div>
+      </div>
     </div>
 
-    <script>
-        function showHelp() {
-            alert("1. Click Download\n2. Open the file\n3. Select 'Settings' if prompted\n4. Toggle 'Allow from this source'");
-        }
+    <!-- title -->
+    <h1 class="title">Elevate your mind.</h1>
 
-        // Smooth click feedback
-        document.getElementById('mainLink').addEventListener('click', function(e) {
-            if(this.getAttribute('href') === 'your-app-file.apk') {
-                console.log("Premium Download Initialized");
-            }
-        });
-    </script>
+    <!-- description -->
+    <p class="desc">
+      Experience the world's most intuitive mental health companion. Designed for clarity, built for you.
+    </p>
+
+    <!-- buttons -->
+    <div class="buttons-space">
+      <!-- Sahay button -->
+      <a href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/app-debug.apk" 
+         class="btn btn-sahay" 
+         download>
+        <span>Download Sahay App</span>
+        <span class="badge">(APK)</span>
+      </a>
+
+      <!-- Mochan button -->
+      <a href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/mochanapp-debug.apk" 
+         class="btn btn-mochan" 
+         download>
+        <span>Download Mochan App</span>
+        <span class="badge">(APK)</span>
+      </a>
+    </div>
+
+    <!-- help footer with toggle -->
+    <div class="help-footer">
+      <button class="help-toggle" id="helpToggle" aria-expanded="false">
+        How to install on Android?
+      </button>
+
+      <!-- hidden help panel (initially hidden) -->
+      <div id="helpPanel" class="help-panel hidden">
+        <div class="help-step">
+          <span class="step-num">1.</span>
+          <span>Click Download button</span>
+        </div>
+        <div class="help-step">
+          <span class="step-num">2.</span>
+          <span>Open the downloaded file</span>
+        </div>
+        <div class="help-step">
+          <span class="step-num">3.</span>
+          <span>Select 'Settings' if prompted</span>
+        </div>
+        <div class="help-step">
+          <span class="step-num">4.</span>
+          <span>Enable 'Allow from this source'</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- very light vanilla JS to mimic react state -->
+  <script>
+    (function() {
+      const toggleBtn = document.getElementById('helpToggle');
+      const panel = document.getElementById('helpPanel');
+      
+      // initial state: hidden (panel has class 'hidden'), aria-expanded false
+      let showHelp = false;   // matching react initial
+
+      toggleBtn.addEventListener('click', function() {
+        showHelp = !showHelp;
+        if (showHelp) {
+          panel.classList.remove('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          panel.classList.add('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+
+  <!-- note: download links point to same github release as react code. 
+       they will trigger download if files exist. -->
 </body>
 </html>
