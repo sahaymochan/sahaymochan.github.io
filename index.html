@@ -1,91 +1,186 @@
-import { useState } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE | Premium Mental Wellness</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #FCFAF7; /* Premium Alabaster */
+            --white: #FFFFFF;
+            --sage-accent: #7A9473;
+            --sage-glow: rgba(122, 148, 115, 0.15);
+            --text-dark: #1A2419;
+            --text-light: #606C5D;
+            --border: #E5EADD;
+        }
 
-export default function App() {
-  const [showHelp, setShowHelp] = useState(false);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-indigo-50/30 to-rose-50/30 flex items-center justify-center p-4">
-      {/* Ambient background effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-emerald-200/15 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-rose-200/15 rounded-full blur-3xl"></div>
-      </div>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-      <div className="relative bg-white/95 backdrop-blur-md max-w-lg w-full rounded-[40px] p-16 shadow-[0_20px_80px_rgba(0,0,0,0.08)] border border-white/20">
-        {/* Branding */}
-        <div className="text-center mb-10">
-          <div className="inline-block">
-            <p className="text-sm font-semibold tracking-wider text-gray-500 uppercase mb-1">
-              AI Mental Health
-            </p>
-            <div className="h-0.5 w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-rose-500 rounded-full"></div>
-          </div>
-        </div>
+        /* Ambient background lighting */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, var(--sage-glow) 0%, rgba(252,250,247,0) 70%);
+            top: -20%;
+            right: -10%;
+            z-index: -1;
+        }
 
-        {/* Title */}
-        <h1 className="text-[2.75rem] font-bold text-center mb-5 text-gray-900 leading-tight tracking-tight">
-          Elevate your mind.
-        </h1>
+        .main-card {
+            background: var(--white);
+            width: 100%;
+            max-width: 480px;
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        {/* Description */}
-        <p className="text-center text-gray-600 text-lg mb-12 leading-relaxed font-light">
-          Experience the world's most intuitive mental health companion. Designed for clarity, built for you.
-        </p>
+        .logo-mark {
+            width: 64px;
+            height: 64px;
+            background: var(--sage-accent);
+            border-radius: 20px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px var(--sage-glow);
+        }
 
-        {/* Buttons */}
-        <div className="space-y-4 mb-10">
-          {/* Sahay Button - Professional Green/Teal */}
-          <a
-            href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/app-debug.apk"
-            className="group flex items-center justify-center bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white px-10 py-5 rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-emerald-500/25 hover:scale-[1.02] transition-all duration-300"
-            download
-          >
-            <span>Download Sahay App</span>
-            <span className="ml-3 text-sm font-normal opacity-80 group-hover:opacity-100 transition-opacity">(APK)</span>
-          </a>
+        h1 {
+            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
 
-          {/* Mochan Button - Pink/Orange */}
-          <a
-            href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/mochanapp-debug.apk"
-            className="group flex items-center justify-center bg-gradient-to-r from-pink-500 to-orange-500 text-white px-10 py-5 rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-pink-500/25 hover:scale-[1.02] transition-all duration-300"
-            download
-          >
-            <span>Download Mochan App</span>
-            <span className="ml-3 text-sm font-normal opacity-80 group-hover:opacity-100 transition-opacity">(APK)</span>
-          </a>
-        </div>
+        p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
 
-        {/* Help Link */}
-        <div className="text-center border-t border-gray-200 pt-6">
-          <button
-            onClick={() => setShowHelp(!showHelp)}
-            className="text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-900 transition-colors font-medium"
-          >
+        /* The "Killer" Link Button */
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--text-dark);
+            color: var(--white);
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.03);
+            background: var(--sage-accent);
+            box-shadow: 0 15px 30px var(--sage-glow);
+        }
+
+        .download-btn span {
+            margin-left: 10px;
+            opacity: 0.6;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        .install-guide {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .install-guide:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 500px) {
+            .main-card { padding: 40px 24px; width: 92%; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        <div class="logo-mark">S</div>
+        <h1>Elevate your mind.</h1>
+        <p>Experience the world’s most intuitive mental health companion. Designed for clarity, built for you.</p>
+        <div class="buttons">
+    <a href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/app-debug.apk" class="download-btn" download>
+        Download Sahay App <span>(APK)</span>
+    </a>
+
+    <a href="https://github.com/sahaymochan/sahaymochan.github.io/releases/download/v1.0/mochanapp-debug.apk" class="download-btn" download>
+        Download Mochan App <span>(APK)</span>
+    </a>
+</div>
+
+        <div class="install-guide" onclick="showHelp()">
             How to install on Android?
-          </button>
-
-          {showHelp && (
-            <div className="mt-5 text-sm text-gray-700 text-left bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-5 space-y-2 border border-gray-200">
-              <p className="flex items-start gap-3">
-                <span className="text-emerald-600 font-semibold">1.</span>
-                <span>Click Download button</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="text-emerald-600 font-semibold">2.</span>
-                <span>Open the downloaded file</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="text-emerald-600 font-semibold">3.</span>
-                <span>Select 'Settings' if prompted</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="text-emerald-600 font-semibold">4.</span>
-                <span>Enable 'Allow from this source'</span>
-              </p>
-            </div>
-          )}
         </div>
-      </div>
     </div>
-  );
-}
+
+    <script>
+        function showHelp() {
+            alert("1. Click Download\n2. Open the file\n3. Select 'Settings' if prompted\n4. Toggle 'Allow from this source'");
+        }
+
+        // Smooth click feedback
+        document.getElementById('mainLink').addEventListener('click', function(e) {
+            if(this.getAttribute('href') === 'your-app-file.apk') {
+                console.log("Premium Download Initialized");
+            }
+        });
+    </script>
+</body>
+</html>
